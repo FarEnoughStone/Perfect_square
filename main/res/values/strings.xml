@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">完美正方</string>
+    <string name="perfectFill">完美填充</string>
+    <string name="perfectRectangle">完美矩形</string>
 </resources>

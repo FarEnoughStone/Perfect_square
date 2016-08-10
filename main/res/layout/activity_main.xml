@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg"
-    android:gravity="center">
-
-    <Button
-        android:id="@+id/bt1"
+    android:background="@drawable/bg_gradient">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/corners_10dp"
-        android:text="完美填充"
-        android:textSize="23sp"
-        android:clickable="true"/>
+        android:layout_height="match_parent"
+        android:id="@+id/bg"/>
     <Button
         android:id="@+id/bt2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/corners_10dp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
         android:text="完美矩形"
+        android:textSize="23sp"
+        android:clickable="true"/>
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_above="@id/bt2"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:text="完美填充"
         android:textSize="23sp"
         android:clickable="true"/>
     <Button
@@ -36,20 +39,12 @@
         android:layout_height="50dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:background="@drawable/corners_10dp"
+        android:textColor="@color/white"
+        android:layout_below="@id/bt2"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_button"
         android:text="完美正方"
         android:textSize="23sp"
         android:clickable="true"/>
-    <Button
-        android:id="@+id/bt4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/corners_10dp"
-        android:text="测试"
-        android:textSize="23sp"
-        android:clickable="true"/>
 
-</LinearLayout>
+</RelativeLayout>

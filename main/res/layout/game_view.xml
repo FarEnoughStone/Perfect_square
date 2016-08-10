@@ -1,49 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/beige">
-
+    android:layout_height="match_parent">
     <LinearLayout
+            android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@color/skyblue">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:src="@android:drawable/ic_menu_revert"
-            android:clickable="true"/>
-        <TextView
-            android:id="@+id/textview1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textSize="25sp"
+        android:layout_height="match_parent"
+        android:background="@color/whitesmoke">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:background="@color/skyblue">
+            <TextView
+                android:id="@+id/tv_prompt"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="提示"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:gravity="center|start"
+                android:clickable="true"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:textSize="25sp"
+                    android:gravity="center|bottom"
+                    android:layout_weight="3"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/textview2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:textColor="@color/white"
+                    android:gravity="center|top"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_choose"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:text="选关"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:gravity="center|end"
+                android:clickable="true"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="5dp"
-            android:src="@android:drawable/ic_dialog_dialer"
-            android:clickable="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/textview3"
+            android:textSize="20sp"
+            android:textColor="@color/skyblue"
+            android:layout_gravity="bottom"/>
     </LinearLayout>
     <RelativeLayout
-        android:id="@+id/relativelayout"
+        android:id="@+id/keyboard"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/textview2"
-        android:textSize="24sp"
+        android:layout_height="150dp"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/key1"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/corners_10dp"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/center"/>
+        <Button
+            android:id="@+id/keyLeft"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textSize="30sp"
+            android:textColor="@color/skyblue"
+            android:text="◁"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/corners_180dp"
+            android:layout_alignBaseline="@id/center"
+            android:layout_toStartOf="@id/center"
+            android:layout_marginEnd="20dp"/>
+        <Button
+            android:id="@+id/keyRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textSize="30sp"
+            android:textColor="@color/skyblue"
+            android:text="▷"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/corners_180dp"
+            android:layout_alignBaseline="@id/center"
+            android:layout_toEndOf="@id/center"
+            android:layout_marginStart="20dp"/>
+        <Button
+            android:id="@+id/keyUp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textSize="30sp"
+            android:textColor="@color/skyblue"
+            android:text="△"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/corners_180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/center"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/keyDown"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textSize="30sp"
+            android:textColor="@color/skyblue"
+            android:text="▽"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/corners_180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/center"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/key2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/corners_10dp"
+        android:text="切换键盘"
         android:textColor="@color/skyblue"
-        android:layout_gravity="bottom"/>
-
-</LinearLayout>
+        android:textSize="20sp" />
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:background="#55000000"/>
+</FrameLayout>

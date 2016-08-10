@@ -11,14 +11,10 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PerfectFill" />
-        <activity android:name=".PerfectRectangle" />
-        <activity android:name=".PerfectSquare" />
-        <activity android:name=".ceshiActivity"/>
+        <activity android:name=".GameActivity"/>
     </application>
 
 </manifest>
