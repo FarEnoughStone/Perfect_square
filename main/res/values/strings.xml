@@ -2,4 +2,13 @@
     <string name="app_name">完美正方</string>
     <string name="perfectFill">完美填充</string>
     <string name="perfectRectangle">完美矩形</string>
+
+    <string name="stringA0">“完美正方形”概念最早由莫伦提出。</string>
+    <string name="stringA1">完美矩形，也称为混完美正方形，是可以分割成几个大小不同的正方形的矩形。</string>
+    <string name="stringA2">1939年，斯普拉格按照莫伦的构想成功地构造出一个55阶的完美正方形，其边长为4205。</string>
+    <string name="stringA3">“完美正方形”是指在一正方形内切割出大小都相异的小正方形.</string>
+    <string name="stringB0">1925年数学家莫伦发现的世界上第一个完美矩形，其为9阶。</string>
+    <string name="stringB1">经过数学家们的不断研究，现在已发现9阶的完美矩形2个，10阶的6个。</string>
+    <string name="stringC0">完美正方形的最低阶为21阶，并且仅此一个！</string>
+    <string name="stringC1">1978年，杜伊维斯廷证明了：不存在低于21阶的完美正方形。</string>
 </resources>

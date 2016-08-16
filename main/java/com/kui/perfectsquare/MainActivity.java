@@ -40,13 +40,13 @@ public class MainActivity extends Activity {
             }
         });
 
-        prompt(bg);
+        drawRect(bg);
     }
     private void start() {
         startActivity(new Intent(MainActivity.this,GameActivity.class));
     }
 
-    private void prompt(RelativeLayout rl) {
+    private void drawRect(RelativeLayout rl) {
         for(int a=10;a-->0;) {
             ImageView view = new ImageView(this);
             view.setMinimumWidth((int)(Math.random()*1000));

@@ -2,7 +2,10 @@ package com.kui.perfectsquare;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -17,13 +20,14 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+
 /**
  * Created by Administrator on 2016/8/9.
  */
 
 public class GameActivity extends Activity implements View.OnTouchListener{
 
-    public static int checkpoint=0;
+    static int checkpoint=0;
 
     private byte rectNumber,aPOINT,bPOINT,order,orderKey=0;
     private int boxLeft, boxTop,boxWidth,boxHeight;
@@ -35,8 +39,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
     private ImageView[] imageViews;
     private TextView tv1,tv2,tv3;
     private Button key1,key2;
-    private RelativeLayout layout,keyBoard;
-    private LinearLayout ll;
+    private RelativeLayout layout,keyBoard,ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +54,18 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         key2 = (Button) findViewById(R.id.key2);
         layout = (RelativeLayout) findViewById(R.id.relativelayout);
         keyBoard = (RelativeLayout) findViewById(R.id.keyboard);
-        ll = (LinearLayout) findViewById(R.id.ll);
+        ll = (RelativeLayout) findViewById(R.id.ll);
 
         key2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (keyBoard.getVisibility() == View.INVISIBLE) {
                     keyBoard.setVisibility(View.VISIBLE);
+                    tv3.setVisibility(View.INVISIBLE);
                     key2.setText("隐藏键盘");
                 } else {
                     keyBoard.setVisibility(View.INVISIBLE);
+                    tv3.setVisibility(View.VISIBLE);
                     key2.setText("显示键盘");
                 }
                 key1.setText("方块" + orderKey);
@@ -112,19 +117,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         (findViewById(R.id.tv_choose)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tv = new TextView(GameActivity.this);
-                tv.setTextColor(getResources().getColor(R.color.white));
-                String s = "";
-                for (int i = 0; i < Data.BOX_LENGTH[aPOINT][2 * bPOINT + 1]; i++) {
-                    for (int j = 0; j < Data.BOX_LENGTH[aPOINT][2 * bPOINT]; j++) {
-                        s += testMatrix[i][j]+" ";
-                    }
-                    s += "\n";
-                }
-                s += Data.RECT_NUMBER[aPOINT].length+" "+(bPOINT+1);
-                ll.addView(tv);
-                tv.setText(s);
-                ll.setVisibility(View.VISIBLE);
+                choose(ll);
             }
         });
         ll.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +131,28 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         init();//数据初始化
         boxInit();//盒子初始化
         rectInit();//方块初始化
+
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
+            int currentVersion = info.versionCode;
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            int lastVersion = prefs.getInt("first", 0);
+            final LinearLayout jiaocheng = (LinearLayout) findViewById(R.id.ll_jiaocheng);
+            jiaocheng.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    jiaocheng.setVisibility(View.INVISIBLE);
+                }
+            });
+            if (currentVersion > lastVersion) {
+                jiaocheng.setVisibility(View.VISIBLE);
+                prefs.edit().putInt("first", currentVersion).commit();
+            } else {
+                jiaocheng.setVisibility(View.INVISIBLE);
+            }
+        } catch (Exception e) {
+            (Toast.makeText(this, "获取版本出错！", Toast.LENGTH_SHORT)).show();
+        }
     }
 
     private void init() {
@@ -174,8 +189,32 @@ public class GameActivity extends Activity implements View.OnTouchListener{
                 (Toast.makeText(this, "数据出错！", Toast.LENGTH_SHORT)).show();
                 finish();
         }
+        drawRect(layout);
         tv1.setText(s);
         tv2.setText("第" + (bPOINT + 1) + "关");
+        key2.setText("显示键盘");
+        String[][] strings={
+                {
+                        getResources().getString(R.string.stringA0),
+                        getResources().getString(R.string.stringA1),
+                        getResources().getString(R.string.stringA2),
+                        getResources().getString(R.string.stringA3)
+                },
+                {
+                        getResources().getString(R.string.stringB0),
+                        getResources().getString(R.string.stringB1),
+                },
+                {
+                        getResources().getString(R.string.stringC0),
+                        getResources().getString(R.string.stringC1),
+                }
+        };
+        if (bPOINT < strings[aPOINT].length) {
+            tv3.setText(strings[aPOINT][bPOINT]);
+        } else {
+            tv3.setText("当前关数为"+rectNumber+"阶!");
+        }
+
     }
 
     private void boxInit() {
@@ -184,6 +223,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         box.setMinimumWidth(Data.BOX_LENGTH[aPOINT][bPOINT * 2] * mindx);
         box.setMinimumHeight(Data.BOX_LENGTH[aPOINT][bPOINT * 2 + 1] * mindx);
         box.setId(View.generateViewId());
+        box.setAlpha(0.9f);
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         boxHeight = Data.BOX_LENGTH[aPOINT][bPOINT * 2 + 1] * mindx;
         boxWidth = Data.BOX_LENGTH[aPOINT][bPOINT * 2] * mindx;
@@ -210,7 +250,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
             view.setMinimumHeight(h[a]*mindx);
             view.setOnTouchListener(this);
             view.setClickable(true);
-            view.setAlpha(0.6f);
+            view.setAlpha(0.9f);
             view.setVisibility(View.INVISIBLE);
             view.setId(View.generateViewId());
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -305,7 +345,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         return false;
     }
 
-    public void keyOnClick(byte mbyte) {
+    private void keyOnClick(byte mbyte) {
         ImageView v = imageViews[orderKey];
         if (v.getLeft() >= boxLeft && v.getTop() >= boxTop &&
                 v.getHeight() + v.getTop() <= boxTop + boxHeight &&
@@ -369,7 +409,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
             if ((bPOINT + 1) < Data.RECT_NUMBER[aPOINT].length) {
                 new AlertDialog.Builder(GameActivity.this)
                         .setMessage("恭喜过关了！^_^")//设置显示的内容
-                        .setPositiveButton("重新挑战",new DialogInterface.OnClickListener() {
+                        .setNegativeButton("重新挑战",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 layout.removeAllViews();//移除所有子控件
@@ -379,7 +419,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
                                 key1.setText("方块" + orderKey);
                                 key1.setTextColor(Data.RECT_COLOR[orderKey]);
                             }})
-                        .setNegativeButton("下一关",new DialogInterface.OnClickListener() {
+                        .setPositiveButton("下一关",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 checkpoint += 1;
@@ -404,7 +444,8 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         }
     }
 
-    private void prompt(LinearLayout ll) {
+    private void prompt(RelativeLayout ll) {
+        ll.removeAllViews();
         RelativeLayout rl = new RelativeLayout(this);
         rl.setMinimumWidth(Data.BOX_LENGTH[aPOINT][bPOINT*2]*mindx+2);
         rl.setMinimumHeight(Data.BOX_LENGTH[aPOINT][bPOINT*2+1]*mindx+2);
@@ -422,8 +463,62 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         }
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp1.leftMargin = (screenWidth - Data.BOX_LENGTH[aPOINT][bPOINT * 2]*mindx) / 2;
-        lp1.topMargin = (screenHeight - Data.BOX_LENGTH[aPOINT][bPOINT * 2 + 1] * mindx) / 2;
+        lp1.topMargin = boxTop - 1;//+ 176
         ll.addView(rl,lp1);
         ll.setVisibility(View.VISIBLE);
+    }
+
+    private void drawRect(RelativeLayout rl) {
+        for(int a=10;a-->0;) {
+            ImageView view = new ImageView(this);
+            view.setMinimumWidth((int)(Math.random()*1000));
+            view.setMinimumHeight((int)(Math.random()*1000));
+            view.setBackground(getResources().getDrawable(R.drawable.bg_random_rect_w));
+            view.setId(View.generateViewId());
+            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lp1.leftMargin = (int)(Math.random()*1000);
+            lp1.topMargin = (int)(Math.random()*1000);
+            rl.addView(view,lp1);
+        }
+
+    }
+
+    private void choose(RelativeLayout rl) {
+        rl.removeAllViews();
+        final Button[] buttons = new Button[Data.RECT_NUMBER[aPOINT].length];
+        for(int i=Data.RECT_NUMBER[aPOINT].length;i-->0;) {
+            Button button = new Button(GameActivity.this);
+            button.setText((" " + (i + 1) + " "));
+            button.setTextColor(getResources().getColor(R.color.skyblue));
+            button.setTextSize(20);
+            button.setId(View.generateViewId());
+            button.setBackground(getResources().getDrawable(R.drawable.bg_button_changecolor));
+            button.setMinimumHeight(screenWidth * 2 / 15);
+            button.setMinimumWidth(screenWidth * 2 / 15);
+            button.setClickable(true);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            for(int i=Data.RECT_NUMBER[aPOINT].length;i-->0;) {
+                                if (view.getId() == buttons[i].getId()) {
+                                    checkpoint = aPOINT * 100 + i;
+                                    ll.setVisibility(View.INVISIBLE);
+                                    layout.removeAllViews();//移除所有子控件
+                                    init();//数据初始化
+                                    boxInit();//盒子初始化
+                                    rectInit();//方块初始化
+                                    key1.setText("方块" + orderKey);
+                                    key1.setTextColor(Data.RECT_COLOR[orderKey]);
+                                }
+                            }
+                        }
+                    });
+            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lp1.leftMargin = screenWidth / 6 + (i % 3) * screenWidth * 4 / 15;
+            lp1.topMargin = screenHeight / 6 + (i / 3) * screenWidth * 4 / 15 ;
+            buttons[i] = button;
+            rl.addView(button, lp1);
+        }
+        rl.setVisibility(View.VISIBLE);
     }
 }

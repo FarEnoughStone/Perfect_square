@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-            android:orientation="vertical"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whitesmoke">
+        android:background="#eeeeee">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,113 +61,134 @@
                 android:clickable="true"/>
         </LinearLayout>
         <RelativeLayout
-            android:id="@+id/relativelayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:id="@+id/textview3"
-            android:textSize="20sp"
-            android:textColor="@color/skyblue"
-            android:layout_gravity="bottom"/>
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:id="@+id/keyboard"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentBottom="true">
+                <Button
+                    android:id="@+id/key1"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/corners_10dp"
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/key1"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="点我切换↓"
+                    android:textColor="#aaaaaa"/>
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/center"/>
+                <Button
+                    android:id="@+id/keyLeft"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/skyblue"
+                    android:text="◁"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/bg_button_changecolor"
+                    android:layout_alignBaseline="@id/center"
+                    android:layout_toStartOf="@id/center"
+                    android:layout_marginEnd="20dp"/>
+                <Button
+                    android:id="@+id/keyRight"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/skyblue"
+                    android:text="▷"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/bg_button_changecolor"
+                    android:layout_alignBaseline="@id/center"
+                    android:layout_toEndOf="@id/center"
+                    android:layout_marginStart="20dp"/>
+                <Button
+                    android:id="@+id/keyUp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/skyblue"
+                    android:text="△"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/bg_button_changecolor"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@id/center"
+                    android:layout_marginBottom="10dp"/>
+                <Button
+                    android:id="@+id/keyDown"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/skyblue"
+                    android:text="▽"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/bg_button_changecolor"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/center"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+            <Button
+                android:id="@+id/key2"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/corners_10dp"
+                android:textColor="@color/skyblue"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="80dp"
+                android:maxWidth="250dp"
+                android:id="@+id/textview3"
+                android:padding="3dp"
+                android:textColor="#bbbbbb"
+                android:layout_alignParentBottom="true"/>
+            <RelativeLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:background="#88000000"/>
+        </RelativeLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/keyboard"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="bottom">
-        <Button
-            android:id="@+id/key1"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/corners_10dp"
-            android:textSize="20sp" />
-        <TextView
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:id="@+id/center"/>
-        <Button
-            android:id="@+id/keyLeft"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="30sp"
-            android:textColor="@color/skyblue"
-            android:text="◁"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@drawable/corners_180dp"
-            android:layout_alignBaseline="@id/center"
-            android:layout_toStartOf="@id/center"
-            android:layout_marginEnd="20dp"/>
-        <Button
-            android:id="@+id/keyRight"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="30sp"
-            android:textColor="@color/skyblue"
-            android:text="▷"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@drawable/corners_180dp"
-            android:layout_alignBaseline="@id/center"
-            android:layout_toEndOf="@id/center"
-            android:layout_marginStart="20dp"/>
-        <Button
-            android:id="@+id/keyUp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="30sp"
-            android:textColor="@color/skyblue"
-            android:text="△"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@drawable/corners_180dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@id/center"
-            android:layout_marginBottom="10dp"/>
-        <Button
-            android:id="@+id/keyDown"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="30sp"
-            android:textColor="@color/skyblue"
-            android:text="▽"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@drawable/corners_180dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/center"
-            android:layout_marginTop="10dp"/>
-    </RelativeLayout>
-    <Button
-        android:id="@+id/key2"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="bottom|end"
-        android:background="@drawable/corners_10dp"
-        android:text="切换键盘"
-        android:textColor="@color/skyblue"
-        android:textSize="20sp" />
     <LinearLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
         android:visibility="invisible"
-        android:background="#55000000"/>
+        android:layout_gravity="center"
+        android:id="@+id/ll_jiaocheng"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:background="@drawable/jiaocheng"/>
 </FrameLayout>
